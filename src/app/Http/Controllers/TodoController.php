@@ -24,16 +24,18 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         // dd('新規作成のルート実行！');
-        $content = $request->input('content'); // 追記
+        // $content = $request->input('content'); // 追記
+        $inputs = $request->all(); // 変更
+        dd($inputs); // 追記
 
-         // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
-    $todo = new Todo(); 
-    // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
-    $todo->content = $content;
-    // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
-    $todo->save();
+        // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
+        $todo = new Todo();
+        // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
+        $todo->fill($inputs);
+        // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
+        $todo->save();
 
-    return redirect()->route('todo.index'); // 追記
+        return redirect()->route('todo.index'); // 追記
 
     }
 }
