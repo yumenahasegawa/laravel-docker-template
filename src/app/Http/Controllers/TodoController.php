@@ -47,7 +47,7 @@ class TodoController extends Controller
 
         return redirect()->route('todo.show', $todo->id);
     }
-    
+
     public function show($id)
     {
         $todo = $this->todo->find($id);
@@ -60,5 +60,13 @@ class TodoController extends Controller
         $todo = $this->todo->find($id);
         // dd($todo);
         return view('todo.edit', ['todo' => $todo]);
+    }
+
+    public function delete($id)
+    {
+        // dd('削除のルート実行！');
+        $todo = $this->todo->find($id);
+        $todo->delete();
+        return redirect()->route('todo.index');
     }
 }
