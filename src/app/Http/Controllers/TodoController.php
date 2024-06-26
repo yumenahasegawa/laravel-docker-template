@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Todo; //追記
+use App\Todo; 
 
 class TodoController extends Controller
 {
@@ -12,21 +12,18 @@ class TodoController extends Controller
         $todo = new Todo();  //Modelのインスタンス化
         $todoList = $todo->all();
 
-        return view('todo.index', ['todoList' => $todoList]); // 修正
+        return view('todo.index', ['todoList' => $todoList]);
     }
 
     public function create()
     {
-        // dd('新規作成画面のルート実行！');
-        return view('todo.create'); // 追記
+        return view('todo.create'); 
     }
 
     public function store(Request $request)
     {
-        // dd('新規作成のルート実行！');
         // $content = $request->input('content'); // 追記
-        $inputs = $request->all(); // 変更
-        dd($inputs); // 追記
+        $inputs = $request->all(); 
 
         // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
         $todo = new Todo();
@@ -37,5 +34,13 @@ class TodoController extends Controller
 
         return redirect()->route('todo.index'); // 追記
 
+    }
+
+    public function show($id)
+    {
+        $model = new Todo();
+        $todo = $model->find($id);
+
+        return view('todo.show', ['todo' => $todo]);
     }
 }
