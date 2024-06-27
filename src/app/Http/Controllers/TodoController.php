@@ -58,13 +58,11 @@ class TodoController extends Controller
     {
         // TODO: 編集対象のレコードの情報を持つTodoモデルのインスタンスを取得
         $todo = $this->todo->find($id);
-        // dd($todo);
         return view('todo.edit', ['todo' => $todo]);
     }
 
     public function delete($id)
     {
-        // dd('削除のルート実行！');
         $todo = $this->todo->find($id);
         $todo->delete();
         return redirect()->route('todo.index');
